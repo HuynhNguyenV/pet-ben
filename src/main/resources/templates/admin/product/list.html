@@ -7,6 +7,7 @@
     <link rel="stylesheet" th:href="@{/webjars/font-awesome/5.10.1/css/all.css}">
     <script th:src="@{/webjars/jquery/3.3.1/jquery.min.js}"></script>
     <script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/product/main.js}"></script>
 </head>
 <body>
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark p-0">
@@ -27,7 +28,10 @@
                     <a th:href='@{/admin/category}' class="nav-link">Categories</a>
                 </li>
                 <li class="nav-item px-2">
-                    <a href="users.html" class="nav-link">Users</a>
+                    <a th:href='@{/admin/user}' class="nav-link">Users</a>
+                </li>
+                <li class="nav-item px-2">
+                    <a th:href='@{/admin/order}' class="nav-link">Orders</a>
                 </li>
             </ul>
 
@@ -72,7 +76,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-3">
-                <a href="#" class="btn btn-primary btn-block" data-toggle="modal" data-target="#addCategoryModal">
+                <a href="#" class="btn btn-primary btn-block nBtn" data-toggle="modal" data-target="#addPostModal">
                     <i class="fas fa-plus"></i> Add Product
                 </a>
             </div>
@@ -80,7 +84,7 @@
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="Search Categories...">
                     <div class="input-group-append">
-                        <button class="btn btn-success">Search</button>
+                        <button class="btn btn-primary">Search</button>
                     </div>
                 </div>
             </div>
@@ -89,7 +93,7 @@
 </section>
 
 <!-- PRODUCT -->
-<section id="categories">
+<section id="posts">
     <div class="container">
         <div class="row">
             <div class="col">
@@ -104,7 +108,8 @@
                             <th>Name</th>
                             <th>Image</th>
                             <th>Description</th>
-                            <th style="width: 200px"></th>
+                            <th>Category</th>
+                            <th></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -115,9 +120,11 @@
                                 <img th:src="${product.image}" th:alt="${product.image}" class="img-thumbnail">
                             </td>
                             <td th:text="${product.description}">Description</td>
+                            <td th:text="${product.category.name}">Category</td>
                             <td>
-                                <a th:href="@{delete/(id=${product.id})}" class="btn btn-danger delBtn">Delete</a>
-                                <a th:href="@{findOne/(id=${product.id})}" class="btn btn-primary eBtn">Edit</a>
+                                <a th:href="@{product/delete/(id=${product.id})}"
+                                   class="btn btn-danger delBtn">Delete</a>
+                                <a th:href="@{product/findOne/(id=${product.id})}" class="btn btn-primary eBtn">Edit</a>
                             </td>
                         </tr>
                         </tbody>
@@ -143,32 +150,100 @@
     </div>
 </footer>
 
-<!-- ADD CATEGORY MODAL -->
-<div class="modal fade" id="addCategoryModal">
-    <div class="modal-dialog modal-lg">
+<!-- ADD PRODUCT MODAL -->
+<div class="myForm">
+    <form th:action="@{/admin/product/save}" method="post">
+        <div class="modal fade" id="addPostModal">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header bg-primary text-white">
+                        <h5 class="modal-title">Add Product</h5>
+                        <button class="close" data-dismiss="modal">
+                            <span>&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="form-group">
+                            <input type="hidden" class="form-control" id="id" name="id" value=""/>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" value="" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="price">Price</label>
+                            <input type="text" id="price" name="price" value="" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="image">Image</label>
+                            <input type="text" id="image" name="image" value="" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="category">Category</label>
+                            <input type="text" id="category" name="category" value="" class="form-control">
+                        </div>
+
+                        <!--                        <div class="form-group">-->
+                        <!--                            <label for="category">Category</label>-->
+                        <!--                            <select class="form-control">-->
+                        <!--                                <option value="">Web Development</option>-->
+                        <!--                                <option value="">Tech Gadgets</option>-->
+                        <!--                                <option value="">Business</option>-->
+                        <!--                                <option value="">Health & Wellness</option>-->
+                        <!--                            </select>-->
+                        <!--                        </div>-->
+                        <!--                        <div class="form-group">-->
+                        <!--                            <label for="image">Upload Image</label>-->
+                        <!--                            <div class="custom-file">-->
+                        <!--                                <input type="file" class="custom-file-input" id="image">-->
+                        <!--                                <label for="image" class="custom-file-label">Choose File</label>-->
+                        <!--                            </div>-->
+                        <!--                            <small class="form-text text-muted">Max Size 3mb</small>-->
+                        <!--                        </div>-->
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <textarea name="description" id="description" value="" class="form-control"></textarea>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <input type="submit" class="btn btn-primary" value="Save"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!--delete-->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header bg-success text-white">
-                <h5 class="modal-title">Add Category</h5>
-                <button class="close" data-dismiss="modal">
-                    <span>&times;</span>
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form>
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" class="form-control">
-                    </div>
-                </form>
+                <p class="alert alert-danger">
+                    Are you sure you want to delete this Product
+                </p>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-success" data-dismiss="modal">Save Changes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <a href="" class="btn btn-danger" id="delRef">Delete</a>
             </div>
         </div>
     </div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
         crossorigin="anonymous"></script>
 
 <script>

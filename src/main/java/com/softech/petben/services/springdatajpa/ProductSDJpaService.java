@@ -6,6 +6,7 @@ import com.softech.petben.services.ProductService;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -23,6 +24,11 @@ public class ProductSDJpaService implements ProductService {
         Set<Product> products = new HashSet<>();
         productRepository.findAll().forEach(products::add);
         return products;
+    }
+
+    @Override
+    public List<Product> search(String name) {
+        return productRepository.findByName(name);
     }
 
     @Override

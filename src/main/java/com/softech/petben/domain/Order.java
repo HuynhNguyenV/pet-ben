@@ -13,7 +13,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Table(name = "ORDER_HEADER")
-public class Order extends AbstractDomain{
+public class Order extends AbstractDomain {
 
     private Date dateShipped;
 

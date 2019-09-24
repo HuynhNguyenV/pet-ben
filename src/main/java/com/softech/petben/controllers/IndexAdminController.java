@@ -16,7 +16,7 @@ public class IndexAdminController {
     }
 
     @RequestMapping({"", "/", "/index", "index.html"})
-    public String index(Model model){
+    public String index(Model model) {
         model.addAttribute("products", productService.findAll());
         return "admin/index";
     }

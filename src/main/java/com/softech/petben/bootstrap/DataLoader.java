@@ -1,9 +1,7 @@
 package com.softech.petben.bootstrap;
 
 import com.softech.petben.domain.Category;
-import com.softech.petben.domain.Customer;
 import com.softech.petben.domain.Product;
-import com.softech.petben.domain.Role;
 import com.softech.petben.services.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -27,50 +25,10 @@ public class DataLoader implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        loadData();
         loadProduct();
-        loadCustomer();
     }
 
-    private void loadData(){
-//        Category category = new Category();
-//        category.setName("food");
-//        categoryService.save(category);
-
-        // Role
-        Role roleAdmin = new Role();
-        roleAdmin.setName("ROLE_ADMIN");
-        roleService.save(roleAdmin);
-
-//        User user = new User();
-//        user.setUsername("Admin");
-//        user.setActive(true);
-//        user.setPassword("123456");
-//        Set<Role> roles = new HashSet<>();
-//        roles.add(roleAdmin);
-//        user.setRoles(roles);
-//        userService.save(user);
-    }
-
-    private void loadCustomer(){
-        Customer customer = new Customer();
-        customer.setLastName("Tom");
-        customer.setFirstName("My");
-        customer.setAddress("132 Duy Tan");
-        customer.setPhoneNumber("1234567");
-        customer.setEmail("abc@gmail.com");
-        customerService.save(customer);
-
-        Customer customer2 = new Customer();
-        customer2.setLastName("Viet");
-        customer2.setFirstName("Huynh");
-        customer2.setAddress("99 Luong Tan");
-        customer2.setPhoneNumber("3232323");
-        customer2.setEmail("doi@gmail.com");
-        customerService.save(customer2);
-    }
-
-    private void loadProduct(){
+    private void loadProduct() {
         Category category = new Category();
         category.setName("food");
         categoryService.save(category);
@@ -110,5 +68,6 @@ public class DataLoader implements CommandLineRunner {
         product4.setCategory(category2);
         product4.setImage("images/product-4.jpeg");
         productService.save(product4);
+
     }
 }

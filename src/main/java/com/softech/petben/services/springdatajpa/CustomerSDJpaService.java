@@ -6,6 +6,7 @@ import com.softech.petben.services.CustomerService;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -22,6 +23,11 @@ public class CustomerSDJpaService implements CustomerService {
         Set<Customer> customers = new HashSet<>();
         customerRepository.findAll().forEach(customers::add);
         return customers;
+    }
+
+    @Override
+    public List<Customer> search(String name) {
+        return customerRepository.findByLastName(name);
     }
 
     @Override

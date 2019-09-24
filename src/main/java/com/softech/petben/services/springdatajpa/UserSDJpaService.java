@@ -6,6 +6,7 @@ import com.softech.petben.services.UserService;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -22,6 +23,11 @@ public class UserSDJpaService implements UserService {
         Set<User> users = new HashSet<>();
         userRepository.findAll().forEach(users::add);
         return users;
+    }
+
+    @Override
+    public List<User> search(String name) {
+        return userRepository.findByUsername(name);
     }
 
     @Override

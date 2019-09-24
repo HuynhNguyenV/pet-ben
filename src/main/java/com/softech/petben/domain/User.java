@@ -11,7 +11,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Table(name = "user")
-public class User extends AbstractDomain{
+public class User extends AbstractDomain {
 
     private String username;
     private String password;
@@ -25,6 +25,6 @@ public class User extends AbstractDomain{
     private Set<Role> roles = new HashSet<>();
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
-    private Set<Order> orders =  new HashSet<>();
+    private Set<Order> orders = new HashSet<>();
 
 }

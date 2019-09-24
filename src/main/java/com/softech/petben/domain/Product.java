@@ -11,7 +11,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Table(name = "product")
-public class Product extends AbstractDomain{
+public class Product extends AbstractDomain {
 
     private String name;
     private Double price;

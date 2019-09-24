@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Table(name = "faq")
-public class Faq extends AbstractDomain{
+public class Faq extends AbstractDomain {
 
     private String title;
     private String description;

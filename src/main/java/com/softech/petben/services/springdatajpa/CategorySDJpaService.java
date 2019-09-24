@@ -6,6 +6,7 @@ import com.softech.petben.services.CategoryService;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -22,6 +23,11 @@ public class CategorySDJpaService implements CategoryService {
         Set<Category> categories = new HashSet<>();
         categoryRepository.findAll().forEach(categories::add);
         return categories;
+    }
+
+    @Override
+    public List<Category> search(String name) {
+        return categoryRepository.findByName(name);
     }
 
     @Override

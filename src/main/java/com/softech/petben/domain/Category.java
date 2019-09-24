@@ -11,7 +11,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Table(name = "category")
-public class Category extends AbstractDomain{
+public class Category extends AbstractDomain {
 
     private String name;
 

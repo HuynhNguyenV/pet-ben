@@ -33,7 +33,7 @@ public class AbstractDomain implements DomainObject {
 
     @PreUpdate
     @PrePersist
-    public void updateTimeStamps(){
+    public void updateTimeStamps() {
         lastUpdated = new Date();
         if (dateCreated == null) {
             dateCreated = new Date();

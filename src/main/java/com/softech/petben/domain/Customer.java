@@ -12,7 +12,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Table(name = "customer")
-public class Customer extends AbstractDomain{
+public class Customer extends AbstractDomain {
 
     private String firstName;
     private String lastName;

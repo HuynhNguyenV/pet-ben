@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 public class CommonBeanConfig {
 
     @Bean
-    public StrongPasswordEncryptor strongPasswordEncryptor(){
+    public StrongPasswordEncryptor strongPasswordEncryptor() {
         StrongPasswordEncryptor encryptor = new StrongPasswordEncryptor();
         return encryptor;
     }
